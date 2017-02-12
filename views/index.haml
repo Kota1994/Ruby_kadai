@@ -1,0 +1,30 @@
+%link(rel="stylesheet" href="css/main.css")
+%form{:method => "POST", :action => '/comment'}
+  %input{:type => "hidden", :name => "_method", :value => "PUT"}
+  %table
+    %tr
+      %td 名前
+      %td
+        %input{:type => "text", :name => "name"}
+    %tr
+      %td タイトル
+      %td
+        %input{:type => "text", :name => "title"}
+    %tr
+      %td 本文
+      %td
+        %textarea{:name => "message", :cols => 60, :rows => 8}
+    %tr
+      %td
+        %input{:type => "submit"}
+
+- @comments.each do |comment|
+  .comment
+    %h2= h comment.title
+    .info
+      %span.name== by #{h comment.name}
+      %span.date== (#{h comment.date})
+    .message
+      = comment.formatted_message
+
+      -#これを見ながらする http://haml.info/tutorial.html
